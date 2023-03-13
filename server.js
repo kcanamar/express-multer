@@ -17,12 +17,17 @@ app.use(express.json()) // this is for application/json encoded data
 // 
 
 // form handling route
-app.post("/submit1", multipart.array("files") , (req, res) => {
+app.post("/submit1", multipart.array("files") , async (req, res) => {
     console.log("debug",{
         body: req.body,
         file: req.files,
         headers: req.headers["content-type"]
     })
+    // reading .txt files
+    console.log(req.files[0].buffer.toString())
+
+    // reading .json files
+    console.log(JSON.parse(req.files[1].buffer.toSting()))
     res.redirect("/")
 })
 
